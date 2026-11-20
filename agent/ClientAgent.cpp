@@ -1,14 +1,15 @@
+//
+// Created by Marcelo Garcia on 11/20/26.
+//
+
+#include "ClientAgent.h"
+
 #include <cstdio>
 #include <iostream>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-
-#include "agente.h"
-
-#include "ftxui/component/component.hpp"
-#include "ftxui/component/screen_interactive.hpp"
 
 
 int agent() {
@@ -33,4 +34,3 @@ int agent() {
 
     return 0;
 }
-

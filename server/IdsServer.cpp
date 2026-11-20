@@ -1,3 +1,9 @@
+//
+// Created by Marcelo Garcia on 11/20/26.
+//
+
+#include "IdsServer.h"
+
 #include <cstdio>
 #include <iostream>
 #include <sys/socket.h>
@@ -5,9 +11,6 @@
 #include <unistd.h>
 #include <ftxui/ftxui.hpp>
 
-#include "servidor.h"
-
-using namespace ftxui;
 
 int tcpserv() {
     int server_fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -51,4 +54,3 @@ int tcpserv() {
 
     return 0;
 }
-

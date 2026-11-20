@@ -20,12 +20,14 @@ FetchContent_MakeAvailable(ftxui)
 # Un solo ejecutable: chive --server | chive --agent
 qt_add_executable(chive
         main.cpp
-        servidor/servidor.cpp
-        servidor/servidor.h
-        agente/agente.cpp
-        agente/agente.h
-        comun/comun.cpp
-        comun/comun.h
+        server/IdsServer.cpp
+        server/IdsServer.h
+        server/ServerView.cpp
+        server/ServerView.h
+        agent/ClientAgent.cpp
+        agent/ClientAgent.h
+        agent/AgentView.cpp
+        agent/AgentView.h
 )
 
 target_include_directories(chive PRIVATE ${CMAKE_SOURCE_DIR})
