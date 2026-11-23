@@ -10,9 +10,72 @@
 #include "agent/ClientAgent.h"
 #include "server/ServerView.h"
 
+#include <QByteArray>
+#include <QDebug>
+
+#include "protocol/Message.h"
+
+
 std::string chooseMode();
 
+int ui(int argc, char* argsv[]);
+
 int main(int argc, char* argsv[]) {
+
+    const char *chunks[] = { "WX|lima|2", "2|183\nWX|cusco|8|1", "60\n" };
+
+    Message m(Message::MsgType::TEL, "agente_01", 45,62,12,"-");
+    QString s = m.serialize();
+    qDebug() << "serializando:" << s;
+
+    Message back;
+    QString err;
+
+    bool ok = Message::parse(s.chopped(1), back, err);
+    qDebug() << "parse ok?" << ok << err;
+    qDebug() << back.getIdNode() << back.getCpu() << back.getRam()
+             << back.getLatency() << back.getPayload();
+    return 0;
+}
+
+// Pantalla inicial: elegir Servidor o Agente con las flechas y Enter
+std::string chooseMode() {
+    auto screen = ftxui::ScreenInteractive::Fullscreen();
+
+    std::vector<std::string> options = {"Servidor", "Agente"};
+    int selected = 0;
+    bool chosen = false;
+
+    ftxui::MenuOption opt;
+    opt.on_enter = [&] {
+        chosen = true;
+        screen.Exit();
+    };
+    auto menu = ftxui::Menu(&options, &selected, opt);
+
+    auto view = ftxui::Renderer(menu, [&] {
+        return ftxui::vbox({
+            ftxui::text("cHive: elige un modo") | ftxui::bold,
+            ftxui::separator(),
+            menu->Render(),
+            ftxui::separator(),
+            ftxui::text("↑↓ mover   Enter elegir   q salir") | ftxui::dim,
+        }) | ftxui::border | ftxui::center;
+    });
+
+    view |= ftxui::CatchEvent([&](ftxui::Event e) {
+        if (e == ftxui::Event::Character('q') || e == ftxui::Event::Escape) {
+            screen.Exit();
+            return true;
+        }
+        return false;
+    });
+
+    screen.Loop(view);
+    return chosen ? options[selected] : "";
+}
+
+int ui(int argc, char *argsv[]) {
     QCoreApplication app(argc, argsv);
 
     QCoreApplication::setApplicationName("cHive");
@@ -56,44 +119,5 @@ int main(int argc, char* argsv[]) {
         AgentView view(ca);
         return view.runAgentClient();
     }
-
-    return 0;
-}
-
-// Pantalla inicial: elegir Servidor o Agente con las flechas y Enter
-std::string chooseMode() {
-    auto screen = ftxui::ScreenInteractive::Fullscreen();
-
-    std::vector<std::string> options = {"Servidor", "Agente"};
-    int selected = 0;
-    bool chosen = false;
-
-    ftxui::MenuOption opt;
-    opt.on_enter = [&] {
-        chosen = true;
-        screen.Exit();
-    };
-    auto menu = ftxui::Menu(&options, &selected, opt);
-
-    auto view = ftxui::Renderer(menu, [&] {
-        return ftxui::vbox({
-            ftxui::text("cHive: elige un modo") | ftxui::bold,
-            ftxui::separator(),
-            menu->Render(),
-            ftxui::separator(),
-            ftxui::text("↑↓ mover   Enter elegir   q salir") | ftxui::dim,
-        }) | ftxui::border | ftxui::center;
-    });
-
-    view |= ftxui::CatchEvent([&](ftxui::Event e) {
-        if (e == ftxui::Event::Character('q') || e == ftxui::Event::Escape) {
-            screen.Exit();
-            return true;
-        }
-        return false;
-    });
-
-    screen.Loop(view);
-    return chosen ? options[selected] : "";
 }
 

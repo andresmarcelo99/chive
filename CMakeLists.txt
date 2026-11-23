@@ -28,6 +28,10 @@ qt_add_executable(chive
         agent/ClientAgent.h
         agent/AgentView.cpp
         agent/AgentView.h
+        protocol/Message.cpp
+        protocol/Message.h
+        protocol/MessageBuffer.cpp
+        protocol/MessageBuffer.h
 )
 
 target_include_directories(chive PRIVATE ${CMAKE_SOURCE_DIR})
