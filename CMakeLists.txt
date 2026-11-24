@@ -32,12 +32,18 @@ qt_add_executable(chive
         protocol/Message.h
         protocol/MessageBuffer.cpp
         protocol/MessageBuffer.h
-        structures/ClientList.cpp
-        structures/ClientList.h
-        structures/ClientNode.cpp
-        structures/ClientNode.h
-        structures/NodeData.cpp
-        structures/NodeData.h
+        structures/linkedlist/ClientList.cpp
+        structures/linkedlist/ClientList.h
+        structures/linkedlist/ClientNode.cpp
+        structures/linkedlist/ClientNode.h
+        structures/linkedlist/NodeData.cpp
+        structures/linkedlist/NodeData.h
+        structures/queue/PacketNode.cpp
+        structures/queue/PacketNode.h
+        structures/queue/PacketQueue.cpp
+        structures/queue/PacketQueue.h
+        structures/queue/PacketData.cpp
+        structures/queue/PacketData.h
 )
 
 target_include_directories(chive PRIVATE ${CMAKE_SOURCE_DIR})

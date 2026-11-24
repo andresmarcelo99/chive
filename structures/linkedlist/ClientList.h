@@ -15,13 +15,13 @@ public:
     ClientList(const ClientList&) = delete;
     ClientList& operator=(const ClientList&) = delete;
 
-
     bool insert(const NodeData &data);
     ClientNode* findById(const QString &id);
     ClientNode* findBySocket(qintptr socketDesc);
     bool remove(const QString &id);
     int count() const;
     const ClientNode* head() const;
+
 private:
     ClientNode *head_ = nullptr;
     ClientNode *tail_ = nullptr;
