@@ -9,7 +9,8 @@
 
 class PacketQueue {
 public:
-    PacketQueue();
+    static constexpr int MAX_QUEUE_SIZE = 64;
+    PacketQueue() = default;
     ~PacketQueue();
 
     PacketQueue(const PacketQueue&) = delete;
@@ -18,7 +19,7 @@ public:
     bool dequeue(PacketData &out);
     bool enqueue(const PacketData &d);
     bool isEmpty();
-    qint64 size();
+    qint64 size() const;
     void clear();
 
 
@@ -26,7 +27,6 @@ private:
     PacketNode* front_ = nullptr;
     PacketNode* back_ = nullptr;
     qint64 counter_ = 0;
-    int MAX_SIZE_ = 50;
 };
 
 
