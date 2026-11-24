@@ -32,6 +32,12 @@ qt_add_executable(chive
         protocol/Message.h
         protocol/MessageBuffer.cpp
         protocol/MessageBuffer.h
+        structures/ClientList.cpp
+        structures/ClientList.h
+        structures/ClientNode.cpp
+        structures/ClientNode.h
+        structures/NodeData.cpp
+        structures/NodeData.h
 )
 
 target_include_directories(chive PRIVATE ${CMAKE_SOURCE_DIR})
