@@ -13,7 +13,7 @@ bool PacketQueue::dequeue(PacketData &out) {
         return false;
     }
     PacketNode *tmp = front_;
-    front_ = front_->next;
+    front_ = front_->next_;
     if (front_ == nullptr) {
         back_ = nullptr;
     }
@@ -33,7 +33,7 @@ bool PacketQueue::enqueue(const PacketData &d) {
         front_ = pn;
         back_ = pn;
     }else {
-        back_->next = pn;
+        back_->next_ = pn;
         back_ = pn;
     }
     counter_++;
@@ -41,10 +41,7 @@ bool PacketQueue::enqueue(const PacketData &d) {
 }
 
 bool PacketQueue::isEmpty() {
-    if (counter_ == 0 || front_ == nullptr) {
-        return true;
-    }
-    return false;
+    return front_ == nullptr;
 }
 
 qint64 PacketQueue::size() const {
@@ -53,5 +50,5 @@ qint64 PacketQueue::size() const {
 
 void PacketQueue::clear() {
     PacketData discard;
-    while (dequeue(discard)){}
+    while (dequeue(discard));
 }

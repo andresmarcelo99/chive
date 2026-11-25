@@ -37,17 +37,28 @@ O abrir la carpeta en CLion y darle a Build.
 ## Estructura
 
 ```
-main.cpp     lee los flags y arranca el modo elegido
-server/      IdsServer (lógica) + ServerView (pantalla)
-agent/       ClientAgent (lógica) + AgentView (pantalla)
+main.cpp                lee los flags y arranca el modo elegido
+server/                 IdsServer (lógica) + ServerView (pantalla)
+agent/                  ClientAgent (lógica) + AgentView (pantalla)
+protocol/               Message (parser y serializer) + MessageBuffer (corta el stream TCP en líneas)
+structures/linkedlist/  ClientList: lista enlazada de clientes conectados
+structures/queue/       PacketQueue: cola FIFO de tramas recibidas
+structures/stack/       AlertStack: pila LIFO de alertas
+docs/protocol.md        formato de las tramas, checksum y validación
 ```
 
 Cada modo tiene una clase de lógica (sin FTXUI) y una clase de vista que solo dibuja y lee teclas.
 
+Las estructuras están hechas a mano con punteros (sin `std::` ni contenedores de Qt). Cada una separa los datos (`NodeData`, `PacketData`, `AlertData`) del nodo que los enlaza.
+
 ## Estado
 
-Por ahora el dashboard del servidor usa datos de prueba. La red, las estructuras de datos y la pantalla del agente vienen en los próximos issues.
+- Listo: protocolo de tramas, ClientList, PacketQueue.
+- En progreso: AlertStack.
+- Pendiente: TelemetryMatrix, servidor TCP con hilos, agente, heartbeat y el resto de issues.
+
+Por ahora el dashboard del servidor usa datos de prueba.
 
 ## Clases planeadas
 
-IdsServer, ClientList, PacketQueue, AlertStack, TelemetryMatrix, Frame, Cipher, Logger, ClientAgent, SocketWorker
+IdsServer, ClientList, PacketQueue, AlertStack, TelemetryMatrix, Message, MessageBuffer, Cipher, Logger, ClientAgent, SocketWorker

@@ -44,6 +44,12 @@ qt_add_executable(chive
         structures/queue/PacketQueue.h
         structures/queue/PacketData.cpp
         structures/queue/PacketData.h
+        structures/stack/AlertStack.cpp
+        structures/stack/AlertStack.h
+        structures/stack/AlertData.cpp
+        structures/stack/AlertData.h
+        structures/stack/AlertNode.cpp
+        structures/stack/AlertNode.h
 )
 
 target_include_directories(chive PRIVATE ${CMAKE_SOURCE_DIR})

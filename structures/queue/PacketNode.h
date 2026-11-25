@@ -12,7 +12,7 @@ class PacketNode {
 public:
     explicit PacketNode(const PacketData &data);
     PacketData data;
-    PacketNode *next = nullptr;
+    PacketNode *next_ = nullptr;
 
 };
 
